@@ -1,0 +1,112 @@
+
+
+{% extends "./base.html" %}
+
+ {% block head %}
+
+ <script>
+
+$(document).ready(function() {
+
+  $(".reservation-delete").click(function(event) {
+    
+      var reservation_id = $(this).parent().parent().parent().find("td").html();
+
+      $.get("/reservation/delete", {reservation_id: reservation_id}, function(){
+
+         location.reload();
+      });
+
+     
+
+  });
+
+});
+
+
+ </script>
+
+
+ {% endblock %}
+
+
+ {% block title %} Show Reservations  {% endblock %}
+
+ {% block content %}
+
+ 
+
+
+<div id="main" class="panel panel-default">
+  <div class="panel-heading">
+    <h1 class="panel-title" >Show Reservations </h1> 
+
+  </div>
+  <div class="panel-body">
+
+{% if res == False %}
+
+<span class="label alert-danger"> Nothing found </span>
+
+{% else %}
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th> Name</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>Time</th>
+          <th>Table</th>
+          <th>Foods</th>
+          <th>Manage</th>
+        </tr>
+      </thead>
+      <tbody>
+
+    	
+    {% for r in res %}
+    <tr>
+    <td>{{ r.id}}</td>
+    <td>{{ r.name }}</td>
+    <td>{{ r.address }}</td>
+    <td>{{ r.phone }}</td>
+    <td>{{ r.time }}</td>
+    <td>{{ r.table.title }}</td>
+    <td>
+    {% for f in r.foodList.all %}
+     {{ f.title }} 
+    {% endfor %}
+    </td>
+
+    <td>
+    <button class="btn btn-xs btn-default reservation-delete"><span class="glyphicon glyphicon-remove"></span>
+    </button>
+    </td>
+    </tr>
+
+
+    {% endfor %}
+        
+      </tbody>
+    </table>
+
+  {% endif %}
+
+
+  
+  	{{ r.phone }}
+  	{{ r.table.title }}
+
+  
+
+
+
+</div>
+</div>
+
+
+
+{% endblock %}
+

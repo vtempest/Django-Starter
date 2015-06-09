@@ -1,0 +1,38 @@
+{% extends "./base.html" %}
+
+{% block title %} Reservation Success {% endblock %}
+
+
+{% block head %}
+
+<script>
+$(document).ready(function() {
+    
+    setTimeout(function(){
+
+    	document.location.pathname="/reservation";
+
+    }, 5000)
+
+});
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+
+<div id="main" class="panel panel-default">
+  <div class="panel-heading">
+    <h1 class="panel-title" >Thanks</h1>
+  </div>
+  <div class="panel-body">
+
+	<span class="label label-default">{{ res.name }}</span>, your reservation for table 
+	<span class="label label-default">{{ res.table }}</span> has gone through.
+
+</div>
+</div>
+
+
+{% endblock %}

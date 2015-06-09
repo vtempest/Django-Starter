@@ -1,0 +1,91 @@
+{% extends "./base.html" %}
+
+{% block title %}  Show Tables   {% endblock %}
+
+{% block head %}  
+<script>
+$(document).ready(function() {
+
+   $(".table-delete").click(function(event) {
+    
+      var table_name = $(this).parent().parent().find("td:first").text();
+                 
+      $.get("{% url 'table_delete' %}", {table_name: table_name}, function(){
+         location.reload();
+      });
+
+  });
+
+	$(".table-add-name").on("keydown",function(e){
+		if (e.keyCode==13)
+			 $(".table-add-button").click();
+	});
+	
+  $(".table-add-button").click(function(event) {
+    
+    var table_name = $(".table-add-name").val();
+
+    if (table_name.length == 0 ){
+      $(".table-add-name").popover({ content : "Must enter table name", placement: "bottom"});
+      $(".table-add-name").popover('show');
+    } else {
+
+      $.get("{% url 'table_create' %}", {table_name: table_name}, function(){
+        location.reload();
+      });
+    }
+  });
+});
+</script>
+ {% endblock %}
+
+ {% block content %}
+
+
+<div id="main" class="panel panel-default">
+  <div class="panel-heading">
+    <h1 class="panel-title" >Show Tables </h1>
+  </div>
+  <div class="panel-body">
+
+  <div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-default table-add-button " type="button"> <span class="glyphicon glyphicon-plus"></span>  Add </button>
+      </span>
+      <input type="text" class="form-control table-add-name" placeholder="Type table name here">
+    </div>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th> Name</th>
+        <th> Reservation Entry</th>
+          <th>Manage</th>
+      </tr>
+    </thead>
+    <tbody>
+
+				{% for r in res %}
+				<tr>
+          {% if r.reserved == "" %}
+				    <td>{{ r.table.title }}</td>
+          {% else %}
+            <td><span class="label label-danger">{{ r.table.title }}</span></td>
+          {% endif %}
+          <td>{{ r.reserved }}</td>
+
+           <td>
+    <button class="btn btn-xs btn-default table-delete"><span class="glyphicon glyphicon-remove"></span>
+    </button>
+    </td>
+
+  </tr>
+{% endfor %}
+
+</tbody>
+</table>
+
+</div>
+</div>
+{% endblock %}
+

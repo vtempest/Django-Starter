@@ -1,0 +1,116 @@
+
+
+{% extends "./base.html" %}
+
+
+
+{% block title %} Create Reservation {% endblock %}
+
+{% block head %}
+
+<script>
+$(document).ready(function() {
+    
+     $('.selectpicker').selectpicker('show');
+   
+
+    $("input").on("keyup", function(){
+
+        var v = $(this).val();
+       
+
+
+
+    })
+
+});
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<div id="main" class="panel panel-default">
+  <div class="panel-heading">
+    <h1 class="panel-title" >Create Reservation</h1>
+  </div>
+  <div class="panel-body">
+
+    {% if error != "" %}
+
+     <div class="alert alert-danger" role="alert"> {{ error }} </div>
+
+    {% endif %}
+
+
+<form action="/reservation/create" method="GET" class="form-horizontal" role="form">
+
+    <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">Name: </label>
+    <div class="col-sm-10">
+        <input class="form-control" id="name" type="text" name="name" maxlength="50"
+        data-toggle="popover" 
+        >
+    </div>
+    </div><div class="form-group">    
+    <label for="address" class="col-sm-2 control-label">Address: </label>
+    <div class="col-sm-10">
+    <input class="form-control" id="address" type="text" name="address" maxlength="50">
+    </div>
+    </div><div class="form-group">
+    <label for="phone" class="col-sm-2 control-label">Phone: </label>
+    <div class="col-sm-10">
+    <input class="form-control" id="phone" type="text" name="phone" maxlength="50">
+    </div>
+    </div><div class="form-group">
+    <label for="time" class="col-sm-2 control-label">Time: </label>
+    <div class="col-sm-10">
+    <input class="form-control" id="time" type="text" name="time" maxlength="50">
+    </div>
+    </div><div class="form-group">
+    <label for="table" class="col-sm-2 control-label">Table: </label>
+     {% if TableList == False  %}
+
+     </div><div class="alert alert-danger" role="alert">No tables available</div>
+     <div>
+
+    {% else %}
+
+    <div class="col-sm-10">
+    <select class="selectpicker form-control" name="table"  >
+
+
+
+        {% for value in TableList %}
+        <option value="{{ value.title }}">{{ value.title }} </option>
+        {% endfor %}
+
+    </select>
+    </div>
+
+    {% endif %}
+
+    </div><div class="form-group">
+    <label for="foodlist" class="col-sm-2 control-label">Food List: </label>
+    <div class="col-sm-10"><select class="form-control" name="foodlist" multiple>
+
+        {% for value in FoodList %}
+        <option value="{{ value.title }}">{{ value.title }} <b>{{ value.price }}</b></option>
+        {% endfor %}
+
+    </select>
+    </div>
+ </div>
+ <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+    <button class="btn btn-primary"  type="submit" > Submit</button>
+    </div>
+   </div>
+</form>
+
+</div>
+
+</div>
+
+
+{% endblock %}
