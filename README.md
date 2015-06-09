@@ -5,7 +5,7 @@ Python Django MVC sample app showing restaraunt reservations for restaraunt tabl
 
 ###Setup
 
-Setup your database in config/settings.py: SQLite file is used default, but can be changed to mysql. Then inject the SQL to begin. Open Command Prompt and cd to the project directory. To inject the SQL models into db.sqlite3, execute:
+Setup your database in app/settings.py: SQLite file is used default, but can be changed to mysql. Then inject the SQL to begin. Open Command Prompt and cd to the project directory. To inject the SQL models into db.sqlite3, execute:
 
 ```python manage.py sql sessions auth app | python manage.py dbshell```
 
@@ -19,7 +19,7 @@ To tun the server execute:
 
 ###Explanations
 
-config/urls.py -- contains url paths that trigger the controllers such as: app.controllerFileName.method 
+app/urls.py -- contains url paths that trigger the controllers such as: app.controllerFileName.method 
 
 app/\*.py -- each view-rendering controller has a separate file with methods
 
